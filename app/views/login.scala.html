@@ -1,0 +1,34 @@
+@(form: Form[Application.Login])
+
+@main("Login", "loginPage") {
+	@helper.form(routes.Application.handleLogin) {
+		@if(form.hasGlobalErrors) {
+		    <p>@form.globalError.message</p>
+		}
+		
+		<label for="userinput" class="ui-hidden-accessible">Nutzer: </label>
+		<input type="text" name="user" id="userinput" placeholder="Nutzer" value="@form("user").value">
+		
+		<label for="domaininput" class="ui-hidden-accessible">Domain:</label>
+		<select id="domaininput" name="domain">
+			@if(form("domain").value == null) {
+				<option value="">Domain wählen</option>
+	            <option value="TNG">TNG</option>
+	            <option value="BBNG">BBNG</option>
+			} else {
+				@if(form("domain").value =="TNG") {
+					<option value="TNG" selected>TNG</option>
+		            <option value="BBNG">BBNG</option>
+				} else {
+					<option value="TNG">TNG</option>
+		            <option value="BBNG" selected>BBNG</option>
+				}
+			}
+        </select>
+
+		<label for="passinput" class="ui-hidden-accessible">Passwort:</label>
+		<input type="password" name="password" id="passinput" placeholder="Passwort" value="">
+	
+  		<input type="submit" value="Login">
+	}
+}

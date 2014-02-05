@@ -1,0 +1,37 @@
+@(userName: String)
+
+@defining("statusPage") { pageId => 
+	@main("Status", pageId, userName) {
+		<h3>Leitungsstatus TO 579825</h3>
+		
+		<div data-bind="foreach: queries">
+			<div data-role="collapsible" data-bind="refreshCollapsible: $root">
+			    <h3>
+			    	<span data-bind="text: $data.header"></span>
+			    	<div data-bind="ifnot: $data.loading">
+				    	<div class="reload-buttons">
+				    		<input data-bind="click: $data.refresh" type="button" value="" data-mini="true" data-inline="true" data-icon="refresh" data-iconpos = "notext" />
+				    	</div>
+			    	</div>
+			    	<div data-bind="if: $data.loading">
+			    		<div class="reload-buttons">
+				    		<input type="button" value="" disabled="" data-mini="true" data-inline="true" data-iconpos = "notext" data-icon="ajaxload"/>
+				    	</div>
+			    	</div>
+				</h3>
+			    <ul data-role="listview" data-bind="foreach: $data.results, refreshList: $data.results">
+				    <li class="ui-grid-a">
+				    	<div class="ui-block-a" data-bind="text: $data.label"></div>
+				    	<div class="ui-block-b" data-bind="text: $data.text"></div>
+					</li>
+			    </ul>
+			</div>
+		</div>
+
+		<script>
+			var queryListUrl = "@routes.Status.listAvailableQueries.url";
+			var statusPageId = "@pageId";
+		</script>
+		<script src="@routes.Assets.at("javascripts/status.js")"></script>
+	}
+}

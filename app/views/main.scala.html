@@ -1,0 +1,41 @@
+@(title: String, pageId: String, user: String = null)(content: Html)
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1"/>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
+<link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+<script src="@routes.Assets.at("javascripts/lib.js")"></script>
+</head>
+<body>
+
+<div data-role="page" id="@pageId">
+  <div data-role="header">
+	@if(user != null) {
+		<h1>@user</h1>
+		@if(routes.Application.index.url != request.uri) {
+			<a href="@routes.Application.index()" data-iconpos="notext" data-icon="home"></a>
+		} else {
+			<a style="visibility:hidden;"></a>	
+		}
+		<a href="@routes.Application.logout()" data-iconpos="notext" data-icon="power"></a>
+	} else {
+	    <h1>Nicht angemeldet</h1>
+	}
+  </div>
+
+  <div data-role="content">
+  	@content
+  </div>
+
+  <div data-role="footer">
+  <h1>Oiko Online - TNG AG</h1>
+  </div>
+</div> 
+
+</body>
+</html>
+
